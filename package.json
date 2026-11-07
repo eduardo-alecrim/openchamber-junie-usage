@@ -1,0 +1,51 @@
+{
+  "name": "openchamber-junie-usage",
+  "displayName": "Junie Credits",
+  "description": "Junie credit balance in the Work Status panel, read from the opencode-jetbrains-junie-oauth plugin.",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eduardo-alecrim/openchamber-junie-usage.git"
+  },
+  "scripts": {
+    "check": "bun node_modules/typescript/bin/tsc -p .",
+    "build": "bun node_modules/@openchamber/sdk/scripts/bundle-guest.ts --node service/main.ts service/main.js"
+  },
+  "devDependencies": {
+    "@openchamber/sdk": "2.6.1",
+    "@types/node": "22",
+    "typescript": "5"
+  },
+  "engines": {
+    "openchamber": ">=2.6.0"
+  },
+  "openchamber": {
+    "apiVersion": 1,
+    "contributes": {
+      "panel": {
+        "id": "junie-usage",
+        "name": "Junie Credits",
+        "icon": "coins"
+      },
+      "service": {
+        "entry": "service/main.js",
+        "runtime": "host",
+        "permissions": {
+          "exec": [
+            "opencode"
+          ]
+        }
+      },
+      "statusSection": {
+        "source": {
+          "path": "/status",
+          "interval": 60000
+        },
+        "title": "Junie"
+      }
+    }
+  }
+}
